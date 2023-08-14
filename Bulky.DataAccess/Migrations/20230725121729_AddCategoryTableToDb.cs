@@ -8,8 +8,7 @@ namespace Bulky.DataAccess.Migrations
 	public partial class AddCategoryTableToDb : Migration
 	{
 		/// <inheritdoc />
-		protected override void Up(MigrationBuilder migrationBuilder)
-		{
+		protected override void Up(MigrationBuilder migrationBuilder) {
 			migrationBuilder.CreateTable(
 				name: "Categories",
 				columns: table => new {
@@ -24,8 +23,7 @@ namespace Bulky.DataAccess.Migrations
 		}
 
 		/// <inheritdoc />
-		protected override void Down(MigrationBuilder migrationBuilder)
-		{
+		protected override void Down(MigrationBuilder migrationBuilder) {
 			migrationBuilder.DropTable(
 				name: "Categories");
 		}

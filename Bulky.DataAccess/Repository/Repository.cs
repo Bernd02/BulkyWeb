@@ -12,8 +12,7 @@ public class Repository<T> : IRepository<T> where T : class
 	private readonly DbSet<T> dbSet;
 
 	// --------------------------------------------------
-	public Repository(ApplicationDbContext db)
-	{
+	public Repository(ApplicationDbContext db) {
 		_db = db;
 
 		// # _db.Categories == dbSet
@@ -21,13 +20,11 @@ public class Repository<T> : IRepository<T> where T : class
 	}
 
 	// --------------------------------------------------
-	public void Add(T entity)
-	{
+	public void Add(T entity) {
 		dbSet.Add(entity);
 	}
 
-	public T? Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
-	{
+	public T? Get(Expression<Func<T, bool>> filter, string? includeProperties = null) {
 		IQueryable<T> query = dbSet;
 
 		if (!string.IsNullOrEmpty(includeProperties)) {
@@ -40,8 +37,7 @@ public class Repository<T> : IRepository<T> where T : class
 		return query.FirstOrDefault();
 	}
 
-	public IEnumerable<T> GetAll(string? includeProperties = null)
-	{
+	public IEnumerable<T> GetAll(string? includeProperties = null) {
 		IQueryable<T> query = dbSet;
 
 		if (!string.IsNullOrEmpty(includeProperties)) {
@@ -53,13 +49,11 @@ public class Repository<T> : IRepository<T> where T : class
 		return query.ToList();
 	}
 
-	public void Remove(T entity)
-	{
+	public void Remove(T entity) {
 		dbSet.Remove(entity);
 	}
 
-	public void RemoveRange(IEnumerable<T> entities)
-	{
+	public void RemoveRange(IEnumerable<T> entities) {
 		dbSet.RemoveRange(entities);
 	}
 }

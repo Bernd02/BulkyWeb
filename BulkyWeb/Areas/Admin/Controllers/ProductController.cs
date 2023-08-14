@@ -24,16 +24,14 @@ public class ProductController : Controller
 	private readonly IWebHostEnvironment _webHostEnvironment;
 
 	// --------------------------------------------------
-	public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
-	{
+	public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment) {
 		_unitOfWork = unitOfWork;
 		_webHostEnvironment = webHostEnvironment;
 	}
 
 	// --------------------------------------------------
 	// GET
-	public IActionResult Index()
-	{
+	public IActionResult Index() {
 		IList<Product> productLIst = _unitOfWork.ProductRepo.GetAll(includeProperties: "Category").ToList();
 
 		return View(productLIst);
@@ -41,8 +39,7 @@ public class ProductController : Controller
 
 	// --------------------------------------------------
 	// UPSERT - CREATE - EDIT
-	public IActionResult Upsert(int? id)
-	{
+	public IActionResult Upsert(int? id) {
 		IEnumerable<SelectListItem> CategoryList = _unitOfWork.CategoryRepo.GetAll()
 			.Select(c => new SelectListItem {
 				Text = c.Name,
@@ -72,8 +69,7 @@ public class ProductController : Controller
 
 	[HttpPost]
 	// public IActionResult Create(ProductVM productVM)
-	public IActionResult Upsert(ProductVM productVM, IFormFile? file)
-	{
+	public IActionResult Upsert(ProductVM productVM, IFormFile? file) {
 		if (ModelState.IsValid) {
 			// # WebHostEnvironment
 			string wwwRootPath = _webHostEnvironment.WebRootPath;
@@ -137,15 +133,13 @@ public class ProductController : Controller
 	// API CALLS
 	#region
 	[HttpGet]
-	public IActionResult GetAll()
-	{
+	public IActionResult GetAll() {
 		IList<Product> productLIst = _unitOfWork.ProductRepo.GetAll(includeProperties: "Category").ToList();
 		return Json(new { data = productLIst });
 	}
 
 	[HttpDelete]
-	public IActionResult Delete(int? id)
-	{
+	public IActionResult Delete(int? id) {
 		Product? product = _unitOfWork.ProductRepo.Get(c => c.Id == id);
 
 		if (product == null) {

@@ -10,8 +10,7 @@ namespace Bulky.DataAccess.Migrations
 	public partial class SeedCategoryTable : Migration
 	{
 		/// <inheritdoc />
-		protected override void Up(MigrationBuilder migrationBuilder)
-		{
+		protected override void Up(MigrationBuilder migrationBuilder) {
 			migrationBuilder.InsertData(
 				table: "Categories",
 				columns: new[] { "Id", "DisplayOrder", "Name" },
@@ -24,8 +23,7 @@ namespace Bulky.DataAccess.Migrations
 		}
 
 		/// <inheritdoc />
-		protected override void Down(MigrationBuilder migrationBuilder)
-		{
+		protected override void Down(MigrationBuilder migrationBuilder) {
 			migrationBuilder.DeleteData(
 				table: "Categories",
 				keyColumn: "Id",

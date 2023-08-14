@@ -24,16 +24,14 @@ public class ProductController : Controller
 	private readonly IWebHostEnvironment _webHostEnvironment;
 
 	// --------------------------------------------------
-	public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
-	{
+	public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment) {
 		_unitOfWork = unitOfWork;
 		_webHostEnvironment = webHostEnvironment;
 	}
 
 	// --------------------------------------------------
 	// GET
-	public IActionResult Index()
-	{
+	public IActionResult Index() {
 		IList<Product> productLIst = _unitOfWork.ProductRepo.GetAll(includeProperties: "Category").ToList();
 
 		return View(productLIst);
@@ -42,8 +40,7 @@ public class ProductController : Controller
 	// --------------------------------------------------
 	// UPSERT - CREATE - EDIT
 	// public IActionResult Create()
-	public IActionResult Upsert(int? id)
-	{
+	public IActionResult Upsert(int? id) {
 		IEnumerable<SelectListItem> CategoryList = _unitOfWork.CategoryRepo.GetAll()
 			.Select(c => new SelectListItem {
 				Text = c.Name,
@@ -73,8 +70,7 @@ public class ProductController : Controller
 
 	[HttpPost]
 	// public IActionResult Create(ProductVM productVM)
-	public IActionResult Upsert(ProductVM productVM, IFormFile? file)
-	{
+	public IActionResult Upsert(ProductVM productVM, IFormFile? file) {
 		if (ModelState.IsValid) {
 
 			// # WebHostEnvironment
@@ -170,8 +166,7 @@ public class ProductController : Controller
 
 	// --------------------------------------------------
 	// DELETE
-	public IActionResult Delete(int? id)
-	{
+	public IActionResult Delete(int? id) {
 		if (id == null || id == 0) {
 			return NotFound();
 		}
@@ -186,8 +181,7 @@ public class ProductController : Controller
 	}
 
 	[HttpPost, ActionName(nameof(Delete))]
-	public IActionResult DeletePOST(int? id)
-	{
+	public IActionResult DeletePOST(int? id) {
 		Product? obj = _unitOfWork.ProductRepo.Get(c => c.Id == id);
 
 		if (obj == null) {
@@ -206,8 +200,7 @@ public class ProductController : Controller
 	// API CALLS
 	#region
 	[HttpGet]
-	public IActionResult GetAll()
-	{
+	public IActionResult GetAll() {
 		IList<Product> productLIst = _unitOfWork.ProductRepo.GetAll(includeProperties: "Category").ToList();
 		return Json(new { data = productLIst });
 	}

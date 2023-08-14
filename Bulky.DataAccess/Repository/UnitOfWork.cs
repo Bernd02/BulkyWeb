@@ -22,8 +22,7 @@ public class UnitOfWork : IUnitOfWork
 
 	// --------------------------------------------------
 	// Constructor
-	public UnitOfWork(ApplicationDbContext db)
-	{
+	public UnitOfWork(ApplicationDbContext db) {
 		_db = db;
 
 		// CategoryRepository manueel injecteren met DI
@@ -39,8 +38,7 @@ public class UnitOfWork : IUnitOfWork
 	// > Je voert het gewoon uit op de UnitOfWork
 	// ... wetende dat de gehele database wordt opgeslagen
 	// ... en dus zo worden de wijzigingen van alle repo's opgeslagen met 1 centraal commando
-	public void Save()
-	{
+	public void Save() {
 		_db.SaveChanges();
 	}
 }

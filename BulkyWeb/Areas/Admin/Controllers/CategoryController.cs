@@ -10,29 +10,25 @@ public class CategoryController : Controller
 	private readonly IUnitOfWork _unitOfWork;
 
 	// --------------------------------------------------
-	public CategoryController(IUnitOfWork unitOfWork)
-	{
+	public CategoryController(IUnitOfWork unitOfWork) {
 		_unitOfWork = unitOfWork;
 	}
 
 	// --------------------------------------------------
 	// GET
-	public IActionResult Index()
-	{
+	public IActionResult Index() {
 		var objCategoryList = _unitOfWork.CategoryRepo.GetAll().ToList();
 		return View(objCategoryList);
 	}
 
 	// --------------------------------------------------
 	// Create
-	public IActionResult Create()
-	{
+	public IActionResult Create() {
 		return View();
 	}
 
 	[HttpPost]
-	public IActionResult Create(Category obj)
-	{
+	public IActionResult Create(Category obj) {
 		if (obj.Name == obj.DisplayOrder.ToString()) {
 			ModelState.AddModelError("Name", "The DisplayOrder cannot be exactly match the Name");
 		}
@@ -58,8 +54,7 @@ public class CategoryController : Controller
 
 	// --------------------------------------------------
 	// Edit
-	public IActionResult Edit(int? id)
-	{
+	public IActionResult Edit(int? id) {
 		if (id == null || id == 0) {
 			return NotFound();
 		}
@@ -76,8 +71,7 @@ public class CategoryController : Controller
 	}
 
 	[HttpPost]
-	public IActionResult Edit(Category obj)
-	{
+	public IActionResult Edit(Category obj) {
 		if (ModelState.IsValid) {
 			// obj wordt gevonden door de PK (id)
 			_unitOfWork.CategoryRepo.Update(obj);
@@ -93,8 +87,7 @@ public class CategoryController : Controller
 
 	// --------------------------------------------------
 	// DELETE
-	public IActionResult Delete(int? id)
-	{
+	public IActionResult Delete(int? id) {
 		if (id == null || id == 0) {
 			return NotFound();
 		}
@@ -109,8 +102,7 @@ public class CategoryController : Controller
 	}
 
 	[HttpPost, ActionName("Delete")]
-	public IActionResult DeletePOST(int? id)
-	{
+	public IActionResult DeletePOST(int? id) {
 		Category? obj = _unitOfWork.CategoryRepo.Get(c => c.Id == id);
 
 		if (obj == null) {

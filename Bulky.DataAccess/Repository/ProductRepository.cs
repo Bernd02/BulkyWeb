@@ -10,15 +10,13 @@ public class ProductRepository : Repository<Product>, IProductRepository
 
 	// --------------------------------------------------
 	// Constructor
-	public ProductRepository(ApplicationDbContext db) : base(db)
-	{
+	public ProductRepository(ApplicationDbContext db) : base(db) {
 		_db = db;
 	}
 
 	// --------------------------------------------------
 	// Methods
-	public void Update(Product obj)
-	{
+	public void Update(Product obj) {
 		// _db.Products.Update(obj);
 
 		// # Expliciet updaten
