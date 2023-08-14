@@ -26,3 +26,14 @@
 
 - Following this tutorial as a refresher of ASP.NET Core MVC
 - Still finishing ... in progress
+
+## Images
+
+- Home
+![Home](image.png)
+
+- Details
+![Details](image-1.png)
+
+- Edit
+![Edit](image-2.png)

@@ -21,6 +21,11 @@ public class HomeController : Controller
 		return View(productList);
 	}
 
+	public IActionResult Details(int id) {
+		Product product = _unitOfWork.ProductRepo.Get(p => p.Id == id, includeProperties: "Category")!;
+		return View(product);
+	}
+
 	public IActionResult Privacy() {
 		return View();
 	}
