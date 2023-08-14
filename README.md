@@ -2,6 +2,8 @@
 
 ( ... in progress )
 
+-----
+
 ## Topics
 
 - Allround MVC Tutorial
@@ -21,11 +23,14 @@
     - Bootstrap
     - JS Libraries
 
+-----
 
 ## Notes
 
 - Following this tutorial as a refresher of ASP.NET Core MVC
 - Still finishing ... in progress
+
+-----
 
 ## Images
 
