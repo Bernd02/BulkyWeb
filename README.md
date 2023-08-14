@@ -30,10 +30,13 @@
 ## Images
 
 - Home
+
 ![home](/BulkyWeb/wwwroot/img/readme/home.png)
 
 - Details
+
 ![details](/BulkyWeb/wwwroot/img/readme/details.png)
 
 - Edit
+
 ![edit](/BulkyWeb/wwwroot/img/readme/edit.png)
