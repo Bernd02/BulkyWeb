@@ -1,12 +1,10 @@
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky.Utility;
 using BulkyWeb.Areas.Admin.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Routing.Constraints;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.IO;
 
 namespace BulkyWeb.Areas.Admin.Controllers;
 
@@ -16,6 +14,8 @@ namespace BulkyWeb.Areas.Admin.Controllers;
 */
 
 [Area("Admin")]
+// Toegang beperken
+[Authorize(Roles = SD.Role_Admin)]
 public class ProductController : Controller
 {
 	private readonly IUnitOfWork _unitOfWork;

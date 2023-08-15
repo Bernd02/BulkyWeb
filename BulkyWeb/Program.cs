@@ -22,6 +22,7 @@ public class Program
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+		// # Security
 		// # Scaffolding Identity - V.+/-8u15
 		// > Default user toevoegen
 		// > Optioneel confirmatieMail bij SignIn
@@ -40,6 +41,16 @@ public class Program
 			.AddEntityFrameworkStores<ApplicationDbContext>()
 			// Nodig omdat we geen DefaultIdentity gebruiken
 			.AddDefaultTokenProviders();
+
+		// # Default Routes van IdentityPages instellen (overschrijven)
+		// > Om redirects juist in te stellen
+		// > V.+/- 9u06m
+		// > Deze Configuratie werkt alleen "na" het toevoegen van de Identity
+		builder.Services.ConfigureApplicationCookie(options => {
+			options.LoginPath = $"/Identity/Account/Login";
+			options.LogoutPath = $"/Identity/Account/Logout";
+			options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+		});
 
 		// # EmailSender implementeren > Zie Bulky.Utility.EmailSender voor meer info
 		// > Om error te vermijden bij activeren van RegistratiePagina
