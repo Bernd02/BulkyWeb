@@ -1,6 +1,6 @@
 # BulkyWeb - a Bookstore Tutorial - ASP.NET Core MVC
 
-( Tutorial project )
+(Tutorial Project)
 
 -----
 
@@ -42,7 +42,7 @@
 - Tutorial as a refresher for ASP.NET Core MVC
     - https://www.youtube.com/watch?v=AopeJjkcRvU
     
-- Code-Comments here and there as reminders to why en where
+- Code-comments here and there as reminders to why en where
 
 -----
 
