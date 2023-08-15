@@ -31,8 +31,11 @@
 ## Getting Started
 
 - Set up SQL Server
+
 - Set ConnectionString
+
 - Update DataBase
+
 - Run App
 
 -----
