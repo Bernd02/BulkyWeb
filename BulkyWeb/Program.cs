@@ -2,6 +2,7 @@ using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace BulkyWeb;
 
@@ -18,6 +19,16 @@ public class Program
 		// DbContext
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+		// Scaffolding Identity - V.+/-8u15
+		// > Default user toevoegen
+		// > Optioneel confirmatieMail bij SignIn
+		// > Mapping van IdentityTables met ApplicationDbContext
+		builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			.AddEntityFrameworkStores<ApplicationDbContext>();
+
+		// > Toevoegen na Scaffolding Identity
+		builder.Services.AddRazorPages();
 
 		// # _categoryRepo
 		// builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -41,7 +52,15 @@ public class Program
 
 		app.UseRouting();
 
+		// Scaffolding Identity - V.+/-8u15
+		// > Manueel toevoegen van onderstaande
+		// > Authentication komt altijd voor Authorization
+		app.UseAuthentication();
+
 		app.UseAuthorization();
+
+		// > Toevoegen na Scaffolding Identity
+		app.MapRazorPages();
 
 		app.MapControllerRoute(
 			name: "default",

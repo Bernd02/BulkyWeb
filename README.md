@@ -27,7 +27,7 @@
 
 ## Notes
 
-- Following this tutorial as a refresher of ASP.NET Core MVC
+- Following this tutorial as a refresher for ASP.NET Core MVC
 - Still finishing ... in progress
 
 -----

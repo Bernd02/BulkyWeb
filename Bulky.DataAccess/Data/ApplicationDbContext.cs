@@ -1,14 +1,16 @@
 using Bulky.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bulky.DataAccess.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
 	// Properties
 	public DbSet<Category> Categories { get; set; } = null!;
 	public DbSet<Product> Products { get; set; } = null!;
+	public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
 
 	// Contstructor
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
