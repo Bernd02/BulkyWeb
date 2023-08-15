@@ -1,7 +1,9 @@
 using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.IRepository;
+using Bulky.Utility;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulkyWeb;
@@ -20,12 +22,27 @@ public class Program
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-		// Scaffolding Identity - V.+/-8u15
+		// # Scaffolding Identity - V.+/-8u15
 		// > Default user toevoegen
 		// > Optioneel confirmatieMail bij SignIn
 		// > Mapping van IdentityTables met ApplicationDbContext
-		builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+		// > Zonder mail-confirmatie
+		// builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+		// 	.AddEntityFrameworkStores<ApplicationDbContext>();
+
+		// builder.Services.AddDefaultIdentity<IdentityUser>()
+		// 	.AddEntityFrameworkStores<ApplicationDbContext>();
+
+		// # IdentityRoles toevoegen > Bovenstaand statement wijzigen naar onderstaand
+		// > Geen Default Identity
+		// > IdentityUser + IdentityRole
+		builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>();
+
+		// # EmailSender implementeren > Zie Bulky.Utility.EmailSender voor meer info
+		// > Om error te vermijden bij activeren van RegistratiePagina
+		// > V.+/- 8u45
+		builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 		// > Toevoegen na Scaffolding Identity
 		builder.Services.AddRazorPages();
@@ -52,7 +69,7 @@ public class Program
 
 		app.UseRouting();
 
-		// Scaffolding Identity - V.+/-8u15
+		// # Scaffolding Identity - V.+/-8u15
 		// > Manueel toevoegen van onderstaande
 		// > Authentication komt altijd voor Authorization
 		app.UseAuthentication();
