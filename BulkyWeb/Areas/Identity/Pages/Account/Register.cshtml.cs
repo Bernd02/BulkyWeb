@@ -9,12 +9,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -104,6 +107,10 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public string Role { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
 
@@ -125,6 +132,20 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
             }
 
             // -----
+            // SelectList met Rollen toevoegen aan InputModel
+            Input = new() {
+                // RoleList = _roleManager.Roles.Select(r => r.Name).Select(r => new SelectListItem {
+                //     Text = r,
+                //     Value = r
+                // })
+                // Dit kan ook
+                RoleList = _roleManager.Roles.Select(r => new SelectListItem {
+                    Text = r.Name,
+                    Value = r.Name
+                })
+            };
+
+            // -----
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -142,6 +163,15 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
                 if (result.Succeeded) {
                     _logger.LogInformation("User created a new account with password.");
 
+                    // Rol toevoegen aan user
+                    if (string.IsNullOrEmpty(Input.Role) == false) {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else {
+                        await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                    }
+
+                    // -----
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

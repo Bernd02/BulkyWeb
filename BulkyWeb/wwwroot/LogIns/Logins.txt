@@ -1,0 +1,3 @@
+TestAdmin@email.com - Admin123*
+TestCustomer@email.com - Customer123*
+TestCustomer1@email.com - Customer123*

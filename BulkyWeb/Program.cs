@@ -37,7 +37,9 @@ public class Program
 		// > Geen Default Identity
 		// > IdentityUser + IdentityRole
 		builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-			.AddEntityFrameworkStores<ApplicationDbContext>();
+			.AddEntityFrameworkStores<ApplicationDbContext>()
+			// Nodig omdat we geen DefaultIdentity gebruiken
+			.AddDefaultTokenProviders();
 
 		// # EmailSender implementeren > Zie Bulky.Utility.EmailSender voor meer info
 		// > Om error te vermijden bij activeren van RegistratiePagina
