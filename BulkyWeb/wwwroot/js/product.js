@@ -1,3 +1,6 @@
+// https://datatables.net/
+// > zie ook nota's
+
 let dataTable;
 
 $(document).ready(function () {
